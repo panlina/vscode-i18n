@@ -11,15 +11,10 @@
 	],
 	"author": "Jack Lu <jacklu@jacklu.me>",
 	"activationEvents": [
-		"onCommand:vscode-i18n.helloWorld"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "vscode-i18n.helloWorld",
-				"title": "Hello World"
-			}
 		]
 	},
 	"scripts": {
