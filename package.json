@@ -14,12 +14,10 @@
 		"url": "git+https://github.com/panlina/vscode-i18n.git"
 	},
 	"author": "Jack Lu <jacklu@jacklu.me>",
-	"activationEvents": [
-	],
+	"activationEvents": [],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-		]
+		"commands": []
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
