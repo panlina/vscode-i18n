@@ -19,7 +19,19 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": []
+		"commands": [
+			{
+				"command": "i18n.explorer.generateDictionary",
+				"title": "Generate Dictionary"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "i18n.explorer.generateDictionary"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -44,6 +56,7 @@
 		"@vscode/test-electron": "^1.6.2"
 	},
 	"dependencies": {
-		"@babel/core": "^7.8.4"
+		"@babel/core": "^7.8.4",
+		"detect-indent": "^6.1.0"
 	}
 }
