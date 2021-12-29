@@ -48,6 +48,17 @@ export function activateTranslationGeneration(context: vscode.ExtensionContext) 
 	);
 
 	context.subscriptions.push(
+		vscode.commands.registerCommand('i18n.explorer.generateReport', async (file: vscode.Uri) => {
+			var config = require(path.join(vscode.workspace.rootPath!, "i18n.config.js"));
+			var languages = Object.keys(config.translator).filter(language => config.translator[language] == 'dictionary');
+			var language = await vscode.window.showQuickPick(languages, { placeHolder: "Language" });
+			if (!language) return;
+			var [m, n] = require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/getStat'))(file.path, language);
+			vscode.window.showInformationMessage(`${m}/${n} entries translated. Coverage: ${(m / n * 100).toFixed(2)}%.`);
+		})
+	);
+
+	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(['javascript', 'javascriptreact', 'typescript', 'typescriptreact'], new TranslationProvider(), {
 			providedCodeActionKinds: [vscode.CodeActionKind.QuickFix]
 		})

@@ -23,12 +23,19 @@
 			{
 				"command": "i18n.explorer.generateDictionary",
 				"title": "Generate Dictionary"
+			},
+			{
+				"command": "i18n.explorer.generateReport",
+				"title": "Generate Report"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
 					"command": "i18n.explorer.generateDictionary"
+				},
+				{
+					"command": "i18n.explorer.generateReport"
 				}
 			]
 		}
