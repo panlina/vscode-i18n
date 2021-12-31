@@ -1,7 +1,7 @@
 {
 	"name": "vscode-i18n",
 	"displayName": "vscode-i18n",
-	"description": "VS Code extension for babel-plugin-i18n",
+	"description": "VS Code extension for @jacklu/babel-plugin-i18n",
 	"version": "0.0.0",
 	"engines": {
 		"vscode": "^1.42.0"
