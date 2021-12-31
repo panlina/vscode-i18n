@@ -1,6 +1,6 @@
-import * as path from 'path';
 import * as vscode from 'vscode';
 import * as babel from '@babel/core';
+import requireBabelPluginI18n from './requireBabelPluginI18n';
 import ast from './ast';
 
 export function activateDiagnostic(context: vscode.ExtensionContext) {
@@ -18,7 +18,7 @@ export function activateDiagnostic(context: vscode.ExtensionContext) {
 	fileSystemWatcher.onDidChange(onDictionaryChange);
 	function onDictionaryChange(uri: vscode.Uri): void {
 		var source = vscode.workspace.textDocuments.filter(
-			d => (d.languageId == 'javascript' || d.languageId == 'javascriptreact' || d.languageId == 'typescript' || d.languageId == 'typescriptreact') && require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/isTranslatedBy'))(d.fileName, uri.fsPath)
+			d => (d.languageId == 'javascript' || d.languageId == 'javascriptreact' || d.languageId == 'typescript' || d.languageId == 'typescriptreact') && requireBabelPluginI18n('isTranslatedBy')(d.fileName, uri.fsPath)
 		);
 		source.forEach(diagnose);
 	};
@@ -52,7 +52,7 @@ export function activateDiagnostic(context: vscode.ExtensionContext) {
 	function diagnose(document: vscode.TextDocument) {
 		try {
 			var result = babel.transformFileSync(document.fileName, {
-				plugins: [require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/analyze'))],
+				plugins: [requireBabelPluginI18n('analyze')],
 				parserOpts: { plugins: ['jsx', 'classProperties', 'typescript'] },
 				ast: true,
 				code: false
@@ -98,8 +98,8 @@ export function activateDiagnostic(context: vscode.ExtensionContext) {
 			key: string;
 			file: string;
 		};
-		var diagnostic = require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/validateDictionary'))(document.fileName) as Diagnostic[];
-		var diagnosticsMessage = require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/diagnosticMessage'));
+		var diagnostic = requireBabelPluginI18n('validateDictionary')(document.fileName) as Diagnostic[];
+		var diagnosticsMessage = requireBabelPluginI18n('diagnosticMessage');
 		var text = document.getText();
 		try {
 			var result = babel.parseSync(`(${text})`);

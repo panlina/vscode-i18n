@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as detectIndent from 'detect-indent';
+import requireBabelPluginI18n from './requireBabelPluginI18n';
 
 export function activateTranslationGeneration(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
@@ -31,7 +32,7 @@ export function activateTranslationGeneration(context: vscode.ExtensionContext) 
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('i18n.generateDictionary', (document: vscode.TextDocument, language: string) => {
-			require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/updateDictionary'))(document.fileName, language);
+			requireBabelPluginI18n('updateDictionary')(document.fileName, language);
 			vscode.window.showTextDocument(vscode.Uri.file(`${document.fileName}.i18n.${language}.json`));
 		})
 	);
@@ -43,7 +44,7 @@ export function activateTranslationGeneration(context: vscode.ExtensionContext) 
 			var language = await vscode.window.showQuickPick(languages, { placeHolder: "Language" });
 			if (!language) return;
 			for (var file of files)
-				require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/updateDictionary'))(file.path, language);
+				requireBabelPluginI18n('updateDictionary')(file.path, language);
 		})
 	);
 
@@ -53,7 +54,7 @@ export function activateTranslationGeneration(context: vscode.ExtensionContext) 
 			var languages = Object.keys(config.translator).filter(language => config.translator[language] == 'dictionary');
 			var language = await vscode.window.showQuickPick(languages, { placeHolder: "Language" });
 			if (!language) return;
-			var [m, n] = require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/getStat'))(file.path, language);
+			var [m, n] = requireBabelPluginI18n('getStat')(file.path, language);
 			vscode.window.showInformationMessage(`${m}/${n} entries translated. Coverage: ${(m / n * 100).toFixed(2)}%.`);
 		})
 	);

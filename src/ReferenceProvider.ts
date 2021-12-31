@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as path from 'path';
 import * as babel from '@babel/core';
-var FILE = require(path.join(vscode.workspace.rootPath!, 'node_modules', 'babel-plugin-i18n/FILE'));
+import requireBabelPluginI18n from './requireBabelPluginI18n';
+var FILE = requireBabelPluginI18n('FILE');
 import ast from './ast';
 
 export function activateReferenceProvider(context: vscode.ExtensionContext) {
