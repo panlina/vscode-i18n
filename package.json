@@ -13,6 +13,7 @@
 		"type": "git",
 		"url": "git+https://github.com/panlina/vscode-i18n.git"
 	},
+	"publisher": "jacklu",
 	"author": "Jack Lu <jacklu@jacklu.me>",
 	"activationEvents": [
 		"workspaceContains:i18n.config.js"
