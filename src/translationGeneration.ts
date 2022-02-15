@@ -103,7 +103,7 @@ class TranslationProvider implements vscode.CodeActionProvider {
 		for (var [language, target] of Object.entries((diagnostic as any).node.$$i18n.target)) {
 			if (target) continue;
 			var title = fs.existsSync(`${document.fileName}.i18n.${language}.json`) ?
-				`Regenerate ${language} dictionary for this file"` :
+				`Regenerate ${language} dictionary for this file` :
 				`Generate ${language} dictionary for this file`;
 			var action = new vscode.CodeAction(title, vscode.CodeActionKind.QuickFix);
 			action.command = {
